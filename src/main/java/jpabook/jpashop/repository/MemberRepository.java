@@ -1,6 +1,8 @@
 package jpabook.jpashop.repository;
 
 import jpabook.jpashop.domain.Member;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
@@ -8,10 +10,15 @@ import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+    //@PersistenceContext
+    //@Autowired 원래 EntityManager는 무조건 @PersistenceContext 표준 어노테이션으로 인젝션을 해주는데
+    //           Spring data jpa가 @Autowired 지원해줌 -> Autowired가 되니깐 lombok-@RequiredArgsConstructor 어노테이션 사용가능
+    //           -> 코드 간결하게 작성 가능(@RequiredArgsConstructor 쓰려면 final 변수 선언!!!)
+    //           MemberService.java 참고
+    private final EntityManager em;
 
     public void save(Member member) {
         em.persist(member);
