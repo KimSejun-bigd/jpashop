@@ -16,9 +16,9 @@ import javax.persistence.EntityManager;
 
 import static org.junit.Assert.*;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@Transactional
+@RunWith(SpringRunner.class) //JUnit 실행할때 스프링이랑 엮어서 실행하겠단 것
+@SpringBootTest              //스프링 부트를 띄운 상태로 테스트하려면 써줘야함
+@Transactional               //트랜잭션을 걸고 테스트 한다음에 롤백 시켜줌(디폹트가 rollback = True)
 public class MemberServiceTest {
 
     @Autowired MemberService memberService;
@@ -42,7 +42,7 @@ public class MemberServiceTest {
         assertEquals(member, memberRepository.findOne(savedId));
     }
 
-    @Test
+    @Test(expected = IllegalStateException.class) //expectd를 쓰면 try catch로 예외 안잡아도 된다. 코드 깔끔해짐
     public void 중복_회원_예외() throws Exception {
         //given
         Member member1 = new Member();
@@ -53,11 +53,7 @@ public class MemberServiceTest {
 
         //when
         memberService.join(member1);
-        try {
-            memberService.join(member2);
-        } catch (IllegalArgumentException e) {
-            return;
-        }
+        memberService.join(member2);
 
         //then
         fail("예외가 발생해야 한다."); //여기까지 오면 잘못된 테스트이므로 fail()을 떨궈주도록 만든다.

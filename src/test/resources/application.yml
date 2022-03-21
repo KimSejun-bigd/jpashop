@@ -1,0 +1,22 @@
+#test>resources 안에 application.yml을 만들어서 설정해두면 테스트 케이스에 대해서는 이 yml 파일이 우선권을 가진다
+#테스트 케이스는 설정을 따로 가져가는게 좋음
+spring:
+
+#  datasource:
+#    url: jdbc:h2:mem:test #h2database.com -> cheat sheet 에 in-memory => 메모리모드로 동작
+#    username: sa
+#    password:
+#    driver-class-name: org.h2.Driver
+
+#  jpa:
+#    hibernate:
+#      ddl-auto: create #기본적으로 ddl-auto 는 create-drop으로 이루어짐(애플리케이션 종료 시점에 드랍해버림)
+#    properties:
+#      hibernate:
+#        #show_sql: true
+#        format_sql: true
+# 스프링 부트에서는 기본적으로 db를 메모리 모드로 실행함 사실상 위의 코드는 없어도 됨
+
+  logging.level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
