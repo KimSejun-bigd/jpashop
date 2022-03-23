@@ -1,6 +1,8 @@
 package jpabook.jpashop.domain;
 
+import lombok.AccessLevel;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "orders")
 @Getter @Setter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Order {
 
     @Id @GeneratedValue
@@ -69,6 +72,9 @@ public class Order {
     }
 
     //==비즈니스 로직==//
+    //엔티티가 비즈니스 로직을 가지고 객체 지향의 특성을 적극 활용하는 것은 "도메인 모델 패턴" 이라고 한다.
+    //==> 서비스 계층을 단순히 엔티티에 필요한 요청을 위임하는 역할만 하도록
+    // <--> 반대로 서비스에서 비즈니스 로직을 처리하는 (ex.일반적으로 SQL을 다룰떄와 같이 했던것들..) "트랜잭션 스크립트 패턴"
     /**
      * 주문 취소
      */
